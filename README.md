@@ -13,9 +13,9 @@ Some examples of files like this are dotfiles in my home directory, and other pr
 
 Here's a solution that was based on a suggestion by Casey Dahlin on Doug Warner's [[blog][Doug Warner]].   Comments from Peter Manis, Benjamin Schmidt and Martin Geisler were also helpful [[here][Peter Manis]], [[here][How do I find the largest filesdirectories]], and [[here][Mercurial]].
 
-## > initialization
-
 The idea is to create and manage __a single repository__ for these files that will be easy to manage.  Files can be added manually.  Regular commits will be made on an ongoing basis, and can even be automated.
+
+## > initialization
 
 First, create the repo in your home directory
 
