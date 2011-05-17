@@ -19,43 +19,39 @@ The idea is to create and manage __a single repository__ for these files that wi
 
 First, create the repository in your home directory
 
-<pre class="brush: bash; gutter: true; toolbar: false;">
-{{{ bash
+``` bash
 cd $HOME
 hg init
-}}}
-</pre>
+```
 
 ## safety precautions
 
 [[Peter Manis]] points out that the `hg purge` command can remove all files in the _working directory_ that are not added to the repo!!  He advises to explicitly disable this command by adding the following to `$HOME/.hg/hgrc`
 
-<pre class="brush: text; gutter: true; toolbar: false;">
+``` text
 [extensions]
 hgext.purge = !
-</pre>
+```
 
 ## list, add, remove, commit
 
 You can list, add, remove, and commit to the repository with the following commands
 
-<pre class="brush: bash; gutter: true; toolbar: false;">
-{{{ bash
+``` bash
 hg manifest
 hg add &lt;files&gt;
 hg forget &lt;files&gt;
 hg commit -m "Added/removed/changed file(s)"
-}}}
-</pre>
+```
 
 ## the default repo
 
 To have `hg` use this repository by default, add the following to your user-level preferences `.hgrc` file
 
-<pre class="brush: text; gutter: true; toolbar: false;">
+``` text
 [path]
 default = $HOME
-</pre>
+```
 
 
 
@@ -66,7 +62,7 @@ An alternative strategy for managing repo files, is to create an `.hgignore` fil
  
 A simple `.hgignore` file looks like this.
 
-<pre class="brush: text; gutter: true; toolbar: false;">
+``` text
 syntax: glob
 *~
 .*.swp
@@ -79,63 +75,52 @@ syntax: regexp
 
 .file1
 ^\.file2\/file3
-
-</pre>
+```
 
 This file excludes several standard temporary files, any file named ".file1", and files matching "file2/file3" in the repo's root, the _working directory_.
 
 After editing the `.hgignore` file to your liking, you can preview your choices with
 
-<pre class="brush: bash; gutter: true; toolbar: false;">
-{{{ bash
+``` bash
 # 1. show "added" files (will be included in the next commit)
 hg status -a
 # 2. show "unknown" files (will not be included in the next commit)
 hg status -u
-}}}
-</pre>
+```
 
 Then, you can use the following shorthand to: 1) add all unknown files and commit the changes to the repo, and 2) view, the resulting contents
 
-<pre class="brush: bash; gutter: true; toolbar: false;">
-{{{ bash
+``` bash
 hg commit -A -m "Added/removed/changed file(s)"
 hg manifest
-}}}
-</pre>
+```
 
 ## .file & .directory sizes
 
 One trick for building `.hgignore` is to detect and exclude __LARGE__ dotfiles and directories.  At first, I tried to these using
 
-<pre class="brush: bash; gutter: true; toolbar: false;">
-{{{ bash
+``` bash
 ls -lSd .* | head -20
-}}}
-</pre>
+```
 
 However, `ls` does not measure the size of directories when reporting relative size.  To see the largest items accounting for the total size of directories,
 use the following
 
-<pre class="brush: bash; gutter: true; toolbar: false;">
-{{{ bash
+``` bash
 for X in $(du -s .[a-zA-Z]* | sort -nr | cut -f 2); do du -hs $X ; done | head -20
-}}}
-</pre>
+```
 
 ## resetting the repo
 
 If you are not happy with the current manifest, and are willing to start again __from scratch__, use the following commands.  WARNING: This will erase any history!
 
-<pre class="brush: bash; gutter: true; toolbar: false;">
-{{{ bash
+``` bash
 cd $HOME
 \rm -rf .hg
 hg init
 hg commit -A -m "Added/removed/changed file(s)"
 hg manifest
-}}}
-</pre>
+```
 
 This can be used to refine the `.hgignore` file in order to initialize the repo
 
