@@ -1,9 +1,0 @@
-
-[paths]
-default=git+ssh://git@github.com/tub78/GDocs2Pdf.git
-default-push=git+ssh://git@github.com/tub78/GDocs2Pdf.git
-
-[extensions]
-hgext.bookmarks =
-hggit =
-
