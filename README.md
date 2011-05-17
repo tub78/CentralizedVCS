@@ -13,7 +13,7 @@ Some examples of files like this are dotfiles in my home directory, and other pr
 
 Here's a solution that was based on a suggestion by Casey Dahlin on Doug Warner's [[blog][Doug Warner]].   Comments from Peter Manis, Benjamin Schmidt and Martin Geisler were also helpful [[here][Peter Manis]], [[here][How do I find the largest filesdirectories]], and [[here][Mercurial]].
 
-## initialization
+## - initialization
 
 The idea is to create and manage __a single repository__ for these files that will be easy to manage.  Files can be added manually.  Regular commits will be made on an ongoing basis, and can even be automated.
 
@@ -24,7 +24,7 @@ cd $HOME
 hg init
 ```
 
-## safety precautions
+## - safety precautions
 
 [[Peter Manis]] points out that the `hg purge` command can remove all files in the _working directory_ that are not added to the repo!!  He advises to explicitly disable this command by adding the following to `$HOME/.hg/hgrc`
 
@@ -33,7 +33,7 @@ hg init
 hgext.purge = !
 ```
 
-## list, add, remove, commit
+## - list, add, remove, commit
 
 You can list, add, remove, and commit to the repository with the following commands
 
@@ -44,7 +44,7 @@ hg forget &lt;files&gt;
 hg commit -m "Added/removed/changed file(s)"
 ```
 
-## the default repo
+## - the default repo
 
 To have `hg` use this repository by default, add the following to your user-level preferences `.hgrc` file
 
@@ -56,7 +56,7 @@ default = $HOME
 
 
 
-## the .hgignore file
+## - the .hgignore file
 
 An alternative strategy for managing repo files, is to create an `.hgignore` file listing the files that you do not wish to be tracked, and then add / commit everything else.
  
@@ -95,7 +95,7 @@ hg commit -A -m "Added/removed/changed file(s)"
 hg manifest
 ```
 
-## .file & .directory sizes
+## - .file & .directory sizes
 
 One trick for building `.hgignore` is to detect and exclude __LARGE__ dotfiles and directories.  At first, I tried to these using
 
@@ -110,7 +110,7 @@ use the following
 for X in $(du -s .[a-zA-Z]* | sort -nr | cut -f 2); do du -hs $X ; done | head -20
 ```
 
-## resetting the repo
+## - resetting the repo
 
 If you are not happy with the current manifest, and are willing to start again __from scratch__, use the following commands.  WARNING: This will erase any history!
 
