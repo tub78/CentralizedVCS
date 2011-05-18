@@ -3,7 +3,7 @@
 # A Centralized Version Control Repository For Isolated Configuration Files, Dot Files, Preferences, Etc.
 -->
 
-Version control systems are programs that maintain versioning/development/editing history for a collection of files.  
+[[Version Control Systems]] are programs that maintain a history of edits or changes to a collection of files.  
 
 I often want to use versioning for individual isolated files, or collections of files, that live somewhere in my directory tree.  However, because management of many independent repositories is hard, I am reluctant to create and maintain a repository wherever the file lives if __the directory itself__ is not under active development.  
 
@@ -26,38 +26,47 @@ hg init
 
 ## > safety precautions
 
-[[Peter Manis]] points out that the `hg purge` command can remove all files in the _working directory_ that are not added to the repo!!  He advises to explicitly disable this command by adding the following to `$HOME/.hg/hgrc`
+[[Peter Manis]] points out that the `hg purge` command can remove all files in the _working directory_ that are not added to the repo!!  He advises to explicitly disable this command for the repo by adding the following to the repo-level `.hgrc` file located in `$HOME/.hg/hgrc`
 
 ``` text
 [extensions]
 hgext.purge = !
 ```
 
-## > list, add, remove, commit
+## > list, add, forget, remove, commit, status
 
-You can list, add, remove, and commit to the repo with the following commands
+You can list, add, forget, remove, and commit to the repo with the following commands
 
 ``` bash
 hg manifest
 hg add &lt;files&gt;
 hg forget &lt;files&gt;
+hg remove &lt;files&gt;
 hg commit -m "Added/removed/changed file(s)"
 ```
 
+The status command reports on all files in the __working directory__ whether they have been added to the repo or not.  This can take a long time.
+
+<pre class="brush: bash; gutter: true; toolbar: false;">
+{{{ bash
+hg status
+}}}
+</pre>
+
 ## > the default repo
 
-To have `hg` use this repo by default, add the following to your user-level preferences `.hgrc` file
+To access the centralized repo from directories other than your `$HOME` directory, set the __default__ path in your user-level `.hgrc` file located in `$HOME/.hgrc`
 
 ``` text
 [path]
 default = $HOME
 ```
 
-If the current directory is not under version control, then the centralized repo will be used.  
+The centralized repo is accessible only if the __current working directory__ (PWD) is not itself the __working directory__ of another repo.
 
 __Warning__: A danger of using this preference is that you may end up using the centralized repo when you intended to use a local repo.  For example, if you accidentally call `hg` from a non-versioned directory.
 
-To clarify which repo you are working on, just type
+To identify which repo you are working on, just type
 
 <pre class="brush: bash; gutter: true; toolbar: false;">
 {{{ bash
@@ -65,14 +74,15 @@ hg showconfig bundle.mainreporoot
 }}}
 </pre>
 
-An easier solution is to add the following to your user-level `.hgrc` preferences file
+An easier solution is to add the following to your user-level `.hgrc` file
 
 <pre class="brush: text; gutter: true; toolbar: false;">
 [hooks]
 pre-status = echo "======\nMAIN REPO ROOT = $PWD\n======"
+pre-manifest = echo "======\nMAIN REPO ROOT = $PWD\n======"
 </pre>
 
-This way, whenevery you type `hg status`, you will be told which repo is active.
+This way, whenevery you type `hg status` or `hg manifest`, you will be told which repo is active.
 
 
 ## > the .hgignore file
@@ -158,15 +168,6 @@ hg manifest
 This can be used to refine the `.hgignore` file in order to initialize the repo
 
 
-
-[Doug Warner]: http://doug.warner.fm/d//blog/2008/07/Version-controlling-my-home-dir
-[Peter Manis]: http://pyverted.com/version-control/using-mercurial-on-your-home-directory/2009/08/
-[How do I find the largest filesdirectories]: http://www.cyberciti.biz/faq/how-do-i-find-the-largest-filesdirectories-on-a-linuxunixbsd-filesystem/
-[Mercurial]: http://mercurial.selenic.com/wiki/TipsAndTricks
-[a-tour-of-mercurial-the-basics]: http://hgbook.red-bean.com/read/a-tour-of-mercurial-the-basics.html
- 
-
-
 # Glossary
 
 Working Directory
@@ -189,5 +190,13 @@ Hg Remove
 
 Hg Commit
 : Commit all changes to repo
+
+
+[Version Control Systems]: http://en.wikipedia.org/wiki/Revision_control
+[Doug Warner]: http://doug.warner.fm/d//blog/2008/07/Version-controlling-my-home-dir
+[Peter Manis]: http://pyverted.com/version-control/using-mercurial-on-your-home-directory/2009/08/
+[How do I find the largest filesdirectories]: http://www.cyberciti.biz/faq/how-do-i-find-the-largest-filesdirectories-on-a-linuxunixbsd-filesystem/
+[Mercurial]: http://mercurial.selenic.com/wiki/TipsAndTricks
+[a-tour-of-mercurial-the-basics]: http://hgbook.red-bean.com/read/a-tour-of-mercurial-the-basics.html
 
 
