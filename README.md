@@ -47,11 +47,9 @@ hg commit -m "Added/removed/changed file(s)"
 
 The status command reports on all files in the __working directory__ whether they have been added to the repo or not.  This can take a long time.
 
-<pre class="brush: bash; gutter: true; toolbar: false;">
-{{{ bash
+``` bash
 hg status
-}}}
-</pre>
+```
 
 ## > the default repo
 
@@ -68,19 +66,17 @@ __Warning__: A danger of using this preference is that you may end up using the 
 
 To identify which repo you are working on, just type
 
-<pre class="brush: bash; gutter: true; toolbar: false;">
-{{{ bash
+``` bash
 hg showconfig bundle.mainreporoot
-}}}
-</pre>
+```
 
 An easier solution is to add the following to your user-level `.hgrc` file
 
-<pre class="brush: text; gutter: true; toolbar: false;">
+``` text
 [hooks]
 pre-status = echo "======\nMAIN REPO ROOT = $PWD\n======"
 pre-manifest = echo "======\nMAIN REPO ROOT = $PWD\n======"
-</pre>
+```
 
 This way, whenevery you type `hg status` or `hg manifest`, you will be told which repo is active.
 
@@ -141,7 +137,7 @@ for X in $(du -s .[a-zA-Z]* | sort -nr | cut -f 2); do du -hs $X ; done | head -
 
 This will produce sorted output, for example
 
-<pre class="brush: text; gutter: true; toolbar: false;">
+``` text
 8.2G	.Trash
  99M	.dropbox
  21M	.m2
@@ -151,7 +147,7 @@ This will produce sorted output, for example
 1.8M	.fontconfig
 976K	.ipython
 ...
-</pre>
+```
 
 ## > resetting the repo
 
