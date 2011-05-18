@@ -26,7 +26,7 @@ hg init
 
 ## > safety precautions
 
-[[Peter Manis]] points out that the `hg purge` command can remove all files in the _working directory_ that are not added to the repo!!  He advises to explicitly disable this command for the repo by adding the following to the repo-level `.hgrc` file located in `$HOME/.hg/hgrc`
+[[Peter Manis]] points out that the `hg purge` command can remove all files in the __working directory__ that are not added to the repo!!  He advises to explicitly disable this command for the repo by adding the following to the project-level `.hgrc` file located in `$HOME/.hg/hgrc`
 
 ``` text
 [extensions]
@@ -35,7 +35,7 @@ hgext.purge = !
 
 ## > list, add, forget, remove, commit, status
 
-You can list, add, forget, remove, and commit to the repo with the following commands
+You can list, add, forget, remove, and commit files to the repo with the following commands
 
 ``` bash
 hg manifest
@@ -106,7 +106,7 @@ syntax: regexp
 ^\.file2\/file3
 ```
 
-This file excludes several standard temporary files, any file named ".file1", and files matching "file2/file3" in the repo's root, the _working directory_.
+This file excludes several standard temporary files, any file named ".file1", and files matching "file2/file3" in the repo's root, __working directory__.
 
 After editing the `.hgignore` file to your liking, you can preview your choices with
 
@@ -169,6 +169,9 @@ This can be used to refine the `.hgignore` file in order to initialize the repo
 
 
 # Glossary
+
+Current Working Directory
+: PWD
 
 Working Directory
 : "To introduce a little terminology, the .hg directory is the “real” repository, and all of the files and directories that coexist with it are said to live in the working directory. An easy way to remember the distinction is that the repository contains the history of your project, while the working directory contains a snapshot of your project at a particular point in history." [[quote][a-tour-of-mercurial-the-basics]]
